@@ -39,7 +39,6 @@ exports ['pad still works for non strings, i.e. numbers '] = function (assert){
   assert.equal(s.toString(),"123       ")
 }
 
-
 exports ['style can pad with different character '] = function (assert){
   var h = "hello"
   var s = style(h)
@@ -140,9 +139,7 @@ exports ['when padding is styled, it is only styled once'] = function (assert){
   assert.ok(padded.length >=  10 , 
       "length of styled padding:" + padded + ".length == " + (padded.length)
     + " should be >= " + ( 10))
-
 }
-
 
 exports ['can destyle a string'] = function (assert) {
 
@@ -166,9 +163,6 @@ exports ['destyled padded style will be same length as un styled string'] = func
         'styled length: ' + r + ' should be much longer'
      +  ' than plain: ' + p
      )
-     
-     assert.ok(("" + style.destyle(r)).length == ("" + p).length)
-     
+
+     assert.ok(("" + style.destyle(r)).length == ("" + p).length)    
 }
-
-

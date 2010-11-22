@@ -1,12 +1,6 @@
 /*
   on second thoughts, having this in style is not 'one module that does one thing well'
   
-  also, i'm not happy with how style can be turned off but it breaks padding.
-  
-  it's better not to have a feature, than to have a crappy feature.
-  
-  what about parsing out all the style information with regex?
-
 */
 
 

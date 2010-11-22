@@ -145,7 +145,6 @@ exports.styles = Object.keys(styles).concat(['rainbow'])
 exports.styles.forEach(function (style) {
   Object.defineProperty(Styled.prototype, style, {
     get: function () {
-//      return stylize(this, style);
     this.styles.push(style)
     return this
     }

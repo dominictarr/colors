@@ -10,7 +10,7 @@
        sys.puts(style('inverse the color').inverse); // inverses the color
        sys.puts(style('OMG Rainbows!').rainbow); // rainbow (ignores spaces)
        
-       slightly more verbose, but better, when it come it this:
+##disable style, for plain output
        
        style = require('style').enable(false) //... which you may want to do at some point!
        
