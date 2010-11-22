@@ -1,7 +1,7 @@
 {
     "name": "style",
     "description": "get colors in your node.js console like what, without monkeypatching",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "author": "Dominic Tarr",
     "repository": {
         "type": "git",
