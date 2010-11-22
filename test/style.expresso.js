@@ -1,6 +1,5 @@
 //test
-style = require('./style')
-
+style = require('../style')
 
 exports ['style wraps a string '] = function (assert){
   var h = "hello"
@@ -26,10 +25,40 @@ exports ['style can pad a string '] = function (assert){
   assert.strictEqual(s.length,20)
 }
 
-exports ['style lpad and rpad are chainable '] = function (assert){
+exports ['pad still works for non strings, i.e. numbers '] = function (assert){
+  var h = 123
+  var s = style(h)
+  assert.equal(('' + h).length, s.length) // length should appear the same.
+
+  s.lpad (10)
+
+  assert.strictEqual(s.length,10)
+  assert.equal(s.toString(),"       123")
+
+  s = style(h).rpad(10)
+  assert.equal(s.toString(),"123       ")
+}
+
+
+exports ['style can pad with different character '] = function (assert){
   var h = "hello"
   var s = style(h)
   assert.equal(h.length, s.length) // length should appear the same.
+
+  s.lpad (10,"!")
+
+  assert.strictEqual(s.length,10)
+  assert.equal(s.toString(),"!!!!!hello")
+
+  s = style(h).rpad (10,"!")
+
+  assert.equal(s.toString(),"hello!!!!!")
+}
+
+exports ['style lpad and rpad are chainable '] = function (assert){
+  var h = "hello"
+  var s = style(h)
+  assert.equal(h.length, s.length)
 
   s.lpad (10).rpad(15)
 
@@ -54,7 +83,7 @@ exports ['can set colours of styled strings '] = function (assert){
     assert.deepEqual(s[e],s,"style:'" + e + "' is chainable")
   })
   
-  assert.equal(h.length, s.length) // length should appear the same.
+  assert.equal(h.length, s.length)
 
   //calling lpad or rpad more than once has undefined behaviour.
 }
@@ -67,11 +96,11 @@ exports ['style is applied on toString'] = function (assert){
   console.log("" + s)
 }
 
-exports ['ruby style .to_s'] = function (assert){
+exports ['ruby style .to_s, for lazyness'] = function (assert){
   var h = "hello"
   var s = style(h).red
 
-  assert.equal(s.to_s,"" + s) //ha! i didn't implement it, but i didn't know it was in js. a win from writing tests first.
+  assert.equal(s.to_s,"" + s)
   console.log("" + s)
 }
 
@@ -94,3 +123,24 @@ exports ['style colours can be disabled'] = function (assert){
     assert.equal(s, h, "'" + s + "' should not have style:" + h)
   })
 }
+
+exports ['when padding is styled, it is only styled once'] = function (assert){
+  var h = "hello"
+  var s = style(h)
+  var pad = style('!').red
+  assert.equal(h.length, s.length) // length should appear the same.
+
+  s.lpad (10,pad)
+  padded = ("" + s)
+  pad_length = ("" + pad).length
+  extra = pad_length - 1
+  assert.ok(padded.length <=  10 + extra, 
+      "length of styled padding:" + padded + ".length == " + (padded.length)
+    + " should be <= " + (extra + 10))
+  assert.ok(padded.length >=  10 , 
+      "length of styled padding:" + padded + ".length == " + (padded.length)
+    + " should be >= " + ( 10))
+
+}
+
+

@@ -70,7 +70,13 @@ function Styled (_string){
   this.styles = []
   this.enable = true
   this.__defineGetter__('length',function (){
-    return _lpad + string.length + _rpad
+    return _lpad + (string.length || ("" + string).length) + _rpad
+  })
+  this.__defineSetter__('_string',function (s){
+    return string = s
+  })
+  this.__defineGetter__('_string',function (s){
+    return string
   })
   this.__defineGetter__('to_s',function (){
     return this.toString()
@@ -79,7 +85,16 @@ function Styled (_string){
   this.toString = toString
   function pad(l,c){
     var pad = ''
+      , _c = c
+    if(_c instanceof Styled) // make pad aware of style, and not duplicate the characters too much!
+      c = _c._string
     for(var i = 0; i < l; i ++) { pad += c }
+    if(_c instanceof Styled){
+      _c._string = pad
+      return _c
+      }
+    
+    
     return pad
   }
   function toString(){
@@ -97,12 +112,12 @@ function Styled (_string){
   
   function lpad (pad,c){
     _lpad = this.length < pad ? _lpad = pad - this.length : 0
-    _lc = _lc || c
+    _lc = c || _lc
     return this
   }
   function rpad (pad,c){
     _rpad = this.length < pad ? _rpad = pad - this.length : 0
-    _rc = _rc || c
+    _rc = c || _rc 
     return this
   }
 }

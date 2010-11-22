@@ -1,1 +1,1 @@
-module.exports = require('.colors')
+module.exports = require('./style')

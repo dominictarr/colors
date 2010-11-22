@@ -21,8 +21,36 @@
        
        //ALSO: does not monkeypatch string with 13 new properties!
        
+          
        
-<h2>colors and styles!</h2>
+## ALSO! pad your strings:
+
+    style("hello").lpad(20)
+    "               hello"
+    style("goodbye").rpad(20,".")
+    "goodbye.............."
+
+    you can even style you padding
+
+    style("goodbye").rpad(20,style(".").grey)
+    
+    style is aware of it self, and will style the pading as one chunk.
+    however...
+## todo:
+
+if you join styled strings and then pad them, because of the escape characters
+it will not come out the same size when you turn style off.
+
+    style = require('style')
+    style((style(1).red + style(2).blue).lpad(10)
+    ________12
+    style = require('style').enable(false)
+    ____________________________12
+
+
+don't do that and you should be fine....
+      
+##colors and styles!##
 - bold
 - italic
 - underline
@@ -37,13 +65,12 @@
 - blue
 - black
 
-## ALSO! pad your strings:
 
-    style("hello").lpad(20)
-    "               hello"
-    style("goodbye").rpad(20,".")
-    "goodbye             "
 
+## run tests
+
+    >npm install expresso
+    >expresso style.expresso.js
 
 ### Authors 
 
