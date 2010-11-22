@@ -9,26 +9,27 @@ var should = require ('should')
   , errorStyle = require('../error')
   , style = require('../style')
   , eq = null
+  , log = console.log
 try{assert.equal(3,7)} catch (err){eq = err}
 
 exports ['can print errors'] = function (test){
-  console.log("THIS IS JUST A DRILL. TESTING ERROR MESSAGE PRINTING")
-  errorStyle.printError(new Error("TESTING ERROR MESSAGES"))
-  errorStyle.printError(eq)
-  errorStyle.printError("sdjflasjdfl TESTING ERROR MESSAGES")
-  errorStyle.printError({name: "Literial Object", message : "Hello. TESTING ERROR MESSAGES" })
-  console.log("DRILL OVER. ERROR MESSAGES ARE REAL AGAIN.")
+  log("THIS IS JUST A DRILL. TESTING ERROR MESSAGE PRINTING")
+  log (errorStyle.printError(new Error("TESTING ERROR MESSAGES")))
+  log (errorStyle.printError(eq))
+  log (errorStyle.printError("sdjflasjdfl TESTING ERROR MESSAGES"))
+  log (errorStyle.printError({name: "Literial Object", message : "Hello. TESTING ERROR MESSAGES" }))
+  log("DRILL OVER. ERROR MESSAGES ARE REAL AGAIN.")
 }
 
 exports ['can print errors in colour'] = function (test){
-  console.log("THIS IS JUST A DRILL. TESTING ERROR MESSAGE PRINTING")
+  log("THIS IS JUST A DRILL. TESTING ERROR MESSAGE PRINTING")
 
-  errorStyle.styleError(new Error("TESTING ERROR MESSAGES"))
-  errorStyle.styleError(eq)
-  errorStyle.styleError("sdjflasjdfl TESTING ERROR MESSAGES")
-  errorStyle.styleError({name: "Literial Object", message : "Hello. TESTING ERROR MESSAGES" })
+  log(errorStyle.styleError(new Error("TESTING ERROR MESSAGES")))
+  log(errorStyle.styleError(eq))
+  log(errorStyle.styleError("sdjflasjdfl TESTING ERROR MESSAGES"))
+  log(errorStyle.styleError({name: "Literial Object", message : "Hello. TESTING ERROR MESSAGES" }))
 
-  console.log("DRILL OVER. ERROR MESSAGES ARE REAL AGAIN.")
+  log("DRILL OVER. ERROR MESSAGES ARE REAL AGAIN.")
 }
 
 exports ['can parse an error and get everything out of it'] = function (test){

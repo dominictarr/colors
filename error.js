@@ -61,5 +61,6 @@ function colourError(error,enable){
     return (row.unmatched)
   }).join("\n") + "\n" //+ end
   
-  console.log(s)
+  //console.log(s)
+  return s
 }
