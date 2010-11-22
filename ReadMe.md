@@ -3,12 +3,24 @@
 <img src="http://i.imgur.com/goJdO.png" border = "0"/>
 
        var sys = require('sys');
-       var colors = require('./colors');
+       var style = require('style');
 
-       sys.puts('hello'.green); // outputs green text
-       sys.puts('i like cake and pies'.underline.red) // outputs red underlined text
-       sys.puts('inverse the color'.inverse); // inverses the color
-       sys.puts('OMG Rainbows!'.rainbow); // rainbow (ignores spaces)
+       sys.puts(style('hello').green); // outputs green text
+       sys.puts(style('i like cake and pies').underline.red) // outputs red underlined text
+       sys.puts(style('inverse the color').inverse); // inverses the color
+       sys.puts(style('OMG Rainbows!').rainbow); // rainbow (ignores spaces)
+       
+       slightly more verbose, but better, when it come it this:
+       
+       style = require('style').enable(false) //... which you may want to do at some point!
+       
+       sys.puts(style('hello').green); // plain text
+       sys.puts(style('i like cake and pies').underline.red) // plain text
+       sys.puts(style('inverse the color').inverse); // plain text
+       sys.puts(style('OMG Rainbows!').rainbow); // plain text
+       
+       //ALSO: does not monkeypatch string with 13 new properties!
+       
        
 <h2>colors and styles!</h2>
 - bold
@@ -23,8 +35,9 @@
 - red
 - grey
 - blue
+- black
 
 
 ### Authors 
 
-#### Alexis Sellier (cloudhead) , Marak Squires , Justin Campbell
+#### Alexis Sellier (cloudhead) , Marak Squires , Justin Campbell, Dominic Tarr

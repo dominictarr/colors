@@ -23,9 +23,18 @@ THE SOFTWARE.
 
 */
 
+function Styled (_string){
+  var string = _string
+    , lpad = 0
+    , rpad = 0
+  this.__defineGetter__('length',function (){
+    return lpad + string.length + rpad
+  }
+}
+
 // prototypes the string object to have additional method calls that add terminal colors
 ['bold', 'underline', 'italic', 'inverse', 'grey', 'yellow', 'red', 'green', 'blue', 'white', 'cyan', 'magenta'].forEach(function (style) {
-  Object.defineProperty(String.prototype, style, {
+  Object.defineProperty(Styled.prototype, style, {
     get: function () {
       return stylize(this, style);
     }
