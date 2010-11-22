@@ -144,3 +144,31 @@ exports ['when padding is styled, it is only styled once'] = function (assert){
 }
 
 
+exports ['can destyle a string'] = function (assert) {
+
+  var dr = 'double rainbow'
+    , r = style(dr).rainbow
+    , flat = "" + r
+    
+  assert.notEqual(r,dr)
+  assert.notEqual(flat,dr)
+  assert.equal(style.destyle(flat),dr)
+}
+
+exports ['destyled padded style will be same length as un styled string'] = function (assert){
+    plain = style.enable(false)
+  
+  var dr = 'double rainbow'
+    , r = style(dr).rainbow.rpad(50,'!')
+    , p = plain(dr).rainbow.rpad(50,'!')
+      
+     assert.ok(("" + r).length > ("" + p).length, 
+        'styled length: ' + r + ' should be much longer'
+     +  ' than plain: ' + p
+     )
+     
+     assert.ok(("" + style.destyle(r)).length == ("" + p).length)
+     
+}
+
+

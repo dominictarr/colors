@@ -21,8 +21,6 @@
        
        //ALSO: does not monkeypatch string with 13 new properties!
        
-          
-       
 ## ALSO! pad your strings:
 
     style("hello").lpad(20)
@@ -35,20 +33,11 @@
     style("goodbye").rpad(20,style(".").grey)
     
     style is aware of it self, and will style the pading as one chunk.
-    however...
-## todo:
+    when style is disabled, padding will still be the same size.
 
-if you join styled strings and then pad them, because of the escape characters
-it will not come out the same size when you turn style off.
+## remove style information:
 
-    style = require('style')
-    style((style(1).red + style(2).blue).lpad(10)
-    ________12
-    style = require('style').enable(false)
-    ____________________________12
-
-
-don't do that and you should be fine....
+    style.destyle( 'styled string' )
       
 ##colors and styles!##
 - bold

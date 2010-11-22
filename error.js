@@ -48,12 +48,12 @@ function colourError(error,enable){
   s = style(parsed.name).red.bold + ": " + (parsed.message ? style(parsed.message).yellow.bold : "")
   s += "\n"
   s += parsed.stack.map(function (row){
-    if(row.line){
+    if(row.file){
       var file = row.file.replace(process.ENV.NODE_PATH,'$')
 
-      return style(style("   " + row.function).yellow.rpad(30,style('.').grey)
+      return style(style("   " + row.function).yellow.rpad(20,style('.').grey)
           + " "
-          + style(file).white.bold).rpad(115,style('.').grey)
+          + style(file).white.bold).rpad(50,style('.').grey)
         + style(row.line).lpad(3,style('.').grey).cyan
         + ":"
         + style(row.column).lpad(3,style('.').grey).magenta

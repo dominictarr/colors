@@ -70,7 +70,7 @@ function Styled (_string){
   this.styles = []
   this.enable = true
   this.__defineGetter__('length',function (){
-    return _lpad + (string.length || ("" + string).length) + _rpad
+    return _lpad + (destyle("" + string).length) + _rpad
   })
   this.__defineSetter__('_string',function (s){
     return string = s
@@ -151,4 +151,9 @@ exports.styles.forEach(function (style) {
     }
   });
 });
+var code = /\u001b\[\d+m/g
 
+exports.destyle = destyle 
+function destyle (s){
+  return ("" + s).replace(code,'')
+}

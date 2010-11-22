@@ -1,3 +1,15 @@
+/*
+  on second thoughts, having this in style is not 'one module that does one thing well'
+  
+  also, i'm not happy with how style can be turned off but it breaks padding.
+  
+  it's better not to have a feature, than to have a crappy feature.
+  
+  what about parsing out all the style information with regex?
+
+*/
+
+
 var should = require ('should')
   , assert = require('assert')
   , errorStyle = require('../error')
@@ -12,9 +24,6 @@ exports ['can print errors'] = function (test){
   errorStyle.printError("sdjflasjdfl TESTING ERROR MESSAGES")
   errorStyle.printError({name: "Literial Object", message : "Hello. TESTING ERROR MESSAGES" })
   console.log("DRILL OVER. ERROR MESSAGES ARE REAL AGAIN.")
-  
-    
-
 }
 
 exports ['can print errors in colour'] = function (test){
@@ -110,7 +119,4 @@ exports ['can parseError for non errorStyle types'] = function (test){
   ot.should.have.property('name','whatever')
   ot.should.have.property('message','non Error error TESTING ERROR MESSAGES')
   ot.should.have.property('stack').eql([{unmatched:nostack}])  
-  
-    
-
 }
