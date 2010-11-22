@@ -37,6 +37,13 @@
 - blue
 - black
 
+## ALSO! pad your strings:
+
+    style("hello").lpad(20)
+    "               hello"
+    style("goodbye").rpad(20,".")
+    "goodbye             "
+
 
 ### Authors 
 
