@@ -7,14 +7,16 @@ function printError(error){
 
 exports.parseStackLine = parseStackLine
 function parseStackLine (row){
-  var regex = /\s*?at\s+([\w\.\-\_]*?)\s*\(?([\/\w\.]+)\:(\d+):(\d+)\)?/g
+  var regex = /\s*?at\s+([\w\.\-\_\<\>]*)\s*\(?([\/\w\.]+)/g //
+      lines = /.*?\:(\d+)\:(\d+)/
     , m = regex.exec(row)
+    , ln = lines.exec(row)
     , line = {}
   if (m){
    line = { function: m[1]
     , file: m[2]
-    , line: 1 * m[3]
-    , column: 1 * m[4] } } 
+    , line: (ln ? 1 * ln[1] : undefined)
+    , column:  (ln ? 1 * ln[2] : undefined) } } 
     
   line.unmatched = row
   return line    
