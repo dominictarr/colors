@@ -166,3 +166,10 @@ exports ['destyled padded style will be same length as un styled string'] = func
 
      assert.ok(("" + style.destyle(r)).length == ("" + p).length)    
 }
+
+exports ['apply a style to multiple objects'] = function (assert){
+ var rb = style().rainbow.styler
+  , dr = 'double rainbow'
+ assert.ok('function',typeof rb)
+ assert.equal('' + rb(dr), '' + style(dr).rainbow)
+}

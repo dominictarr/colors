@@ -81,7 +81,19 @@ function Styled (_string){
   this.__defineGetter__('to_s',function (){
     return this.toString()
   })
-
+  this.__defineGetter__('styler',function (){
+    var self = this
+    return function (x,off){
+      var _string = string
+        , _enable = self.enable
+        self.enable = !off
+      string = x
+      var toReturn = self.toString()
+      string = _string
+      this.enable = _enable
+      return toReturn
+    }
+  })
   this.toString = toString
   function pad(l,c){
     var pad = ''
@@ -93,7 +105,6 @@ function Styled (_string){
       _c._string = pad
       return _c
       }
-    
     
     return pad
   }

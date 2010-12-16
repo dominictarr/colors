@@ -7,7 +7,7 @@ function printError(error){
 
 exports.parseStackLine = parseStackLine
 function parseStackLine (row){
-  var regex = /\s*?at\s+([\w\.\-\_\<\>]*)\s*\(?([\/\w\.]+)/g //
+  var regex = /\s*?at\s+([\w\.\-\_\<\>]*)?\s*\(?([\[\ \]\/\-\_\w\.]+)/g //
       lines = /.*?\:(\d+)\:(\d+)/
     , m = regex.exec(row)
     , ln = lines.exec(row)
@@ -51,12 +51,12 @@ function colourError(error,enable){
     if(row.file){
       var file = row.file.replace(process.ENV.NODE_PATH,'$')
 
-      return style(style("   " + row.function).yellow.rpad(20,style('.').grey)
+      return style(style(" " + row.function).yellow.rpad(30,style('.').grey)
           + " "
-          + style(file).white.bold).rpad(50,style('.').grey)
-        + style(row.line).lpad(3,style('.').grey).cyan
+          + style(file).white.bold).rpad(70,style('.').grey)
+        + style(row.line || '?').lpad(3,style('.').grey).cyan
         + ":"
-        + style(row.column).lpad(3,style('.').grey).magenta
+        + style(row.column || '?').lpad(3,style('.').grey).magenta
     }
     return (row.unmatched)
   }).join("\n") + "\n" //+ end

@@ -35,8 +35,8 @@ exports ['can print errors in colour'] = function (test){
 exports ['can parse an error and get everything out of it'] = function (test){
 var stack = 
   "AssertionError: 7 == 3\n"
-    + "at Object.equal (/home/dominic/code/node/meta_test/test_reports.js:21:13)\n"
-    + "at Array.0 (/home/dominic/code/node/meta_test/test/test_reports.asynct.js:201:49)\n"
+    + "at Object.equal (/home/dominic/code/node/meta-test/test_reports.js:21:13)\n"
+    + "at Array.0 (/home/dominic/code/node/meta-test/test/test_reports.asynct.js:201:49)\n"
     + "at runTestFunc (/home/dominic/code/node/async_testing/lib/testing.js:99:22)\n"
     + "at startNextTest (/home/dominic/code/node/async_testing/lib/testing.js:83:5)\n"
     + "at Array.0 (/home/dominic/code/node/async_testing/lib/testing.js:232:6)\n" 
@@ -52,46 +52,70 @@ var obj = errorStyle.parseError(error)
  
 
    obj.stack[1].should.have.property('function','Object.equal')
-   obj.stack[1].should.have.property('file','/home/dominic/code/node/meta_test/test_reports.js')
+   obj.stack[1].should.have.property('file','/home/dominic/code/node/meta-test/test_reports.js')
    obj.stack[1].should.have.property('line',21)
    obj.stack[1].should.have.property('column',13)
 }
 
 exports ['can parse information from a stack trace'] = function (test){
-  var l1 = "at Object.equal (/home/dominic/code/node/meta_test/test_reports.js:21:13)"
-    , l2 = "at Array.0 (/home/dominic/code/node/meta_test/test/test_reports.asynct.js:201:49)"
-    , l3 = "at runTestFunc (/home/dominic/code/node/async_testing/lib/testing.js:99:22)"
-    , l4 = "at Array.forEach (native)"
-    , l5 = "at Object.<anonymous> (/home/dominic/code/node/style/test/error.expresso.js:6:12)"
+  var lines = 
 
-  var o1 = errorStyle.parseStackLine(l1)
-    , o2 = errorStyle.parseStackLine(l2)
-    , o3 = errorStyle.parseStackLine(l3)
-    , o4 = errorStyle.parseStackLine(l4)
-    , o5 = errorStyle.parseStackLine(l5)
+  [ { unmatched: "at Object.equal (/home/dominic/code/node/meta-test/test_reports.js:21:13)" 
+
+    , function : 'Object.equal'
+    , file : '/home/dominic/code/node/meta-test/test_reports.js'
+    , line : 21
+    , column: 13 }
+
+  , { unmatched: "at Array.0 (/home/dominic/code/node/meta-test/test/test_reports.asynct.js:201:49)"
+  
+    , function : 'Array.0'
+    , file : '/home/dominic/code/node/meta-test/test/test_reports.asynct.js'
+    , line : 201
+    , column: 49 }
+
+  , { unmatched: "at runTestFunc (/home/dominic/code/node/async_testing/lib/testing.js:99:22)"
+  
+    , function : 'runTestFunc'
+    , file : '/home/dominic/code/node/async_testing/lib/testing.js'
+    , line : 99
+    , column: 22 }
+
+  , { unmatched: "at Array.forEach (native)"
+  
+    , function : 'Array.forEach'
+    , file : 'native' }
+
+  , { unmatched: "at Object.<anonymous> (/home/dominic/code/node/style/test/error.expresso.js:6:12)"
+  
+    , function : 'Object.<anonymous>'
+    , file : '/home/dominic/code/node/style/test/error.expresso.js' 
+    , line : 6
+    , column: 12 }
     
-   o1.should.have.property('function','Object.equal')
-   o1.should.have.property('file','/home/dominic/code/node/meta_test/test_reports.js')
-   o1.should.have.property('line',21)
-   o1.should.have.property('column',13)
+  , { unmatched: "at [object Context]:1:9"
+  
+    , file : '[object Context]' 
+    , line : 1
+    , column: 9 }
+       
 
-   o2.should.have.property('function','Array.0')
-   o2.should.have.property('file','/home/dominic/code/node/meta_test/test/test_reports.asynct.js')
-   o2.should.have.property('line',201)
-   o2.should.have.property('column',49)
 
-   o3.should.have.property('function','runTestFunc')
-   o3.should.have.property('file','/home/dominic/code/node/async_testing/lib/testing.js')
-   o3.should.have.property('line',99)
-   o3.should.have.property('column',22)
-   
-   o4.should.have.property('function','Array.forEach')
-   o4.should.have.property('file','native')
+  ]
 
-   o5.should.have.property('function','Object.<anonymous>')
-   o5.should.have.property('file','/home/dominic/code/node/style/test/error.expresso.js')
-   o5.should.have.property('line',6)
-   o5.should.have.property('column',12)
+  lines.forEach(function (l){
+    var o = errorStyle.parseStackLine(l.unmatched)
+   if(l.function)
+     o.should.have.property('function',l.function)
+
+   o.should.have.property('file',l.file)
+
+   if(l.line)
+     o.should.have.property('line',l.line)
+
+   if(l.column)
+     o.should.have.property('column',l.column)
+  })
 }
 
 
