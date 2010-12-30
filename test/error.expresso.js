@@ -98,8 +98,10 @@ exports ['can parse information from a stack trace'] = function (test){
     , file : '[object Context]' 
     , line : 1
     , column: 9 }
-       
-
+  , { unmatched: "expected context-free grammar parser to accept:'the cat ate the mouse'"
+      //occasionally i've had confusing errors where the regex was over zealously parseing the message...
+      //this messsage should not match!
+    }
 
   ]
 
@@ -108,13 +110,20 @@ exports ['can parse information from a stack trace'] = function (test){
    if(l.function)
      o.should.have.property('function',l.function)
 
-   o.should.have.property('file',l.file)
+   if(l.file) //so verbose!
+     o.should.have.property('file',l.file)
+   else
+     o.should.not.have.property('file')
 
    if(l.line)
      o.should.have.property('line',l.line)
-
+   else
+     o.should.not.have.property('line')
+   
    if(l.column)
      o.should.have.property('column',l.column)
+   else
+     o.should.not.have.property('column')
   })
 }
 

@@ -7,7 +7,7 @@ function printError(error){
 
 exports.parseStackLine = parseStackLine
 function parseStackLine (row){
-  var regex = /\s*?at\s+([\w\.\-\_\<\>]*)?\s*\(?([\[\ \]\/\-\_\w\.]+)/g //
+  var regex = /^\s*?at\s+([\w\.\-\_\<\>]*)?\s*\(?([\[\ \]\/\-\_\w\.]+)/g //
       lines = /.*?\:(\d+)\:(\d+)/
     , m = regex.exec(row)
     , ln = lines.exec(row)
