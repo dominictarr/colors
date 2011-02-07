@@ -1,7 +1,8 @@
 //test
-style = require('../style')
-
-exports ['style wraps a string '] = function (assert){
+var style = require('../style')
+  , assert = require('assert')
+  
+exports ['style wraps a string '] = function (){
   var h = "hello"
   var s = style(h)
   assert.equal(h.length, s.length) // length should appear the same.
@@ -9,7 +10,7 @@ exports ['style wraps a string '] = function (assert){
   assert.strictEqual(s.toString(),h)
 }
 
-exports ['style can pad a string '] = function (assert){
+exports ['style can pad a string '] = function (){
   var h = "hello"
   var s = style(h)
   assert.equal(h.length, s.length) // length should appear the same.
@@ -25,7 +26,7 @@ exports ['style can pad a string '] = function (assert){
   assert.strictEqual(s.length,20)
 }
 
-exports ['pad still works for non strings, i.e. numbers '] = function (assert){
+exports ['pad still works for non strings, i.e. numbers '] = function (){
   var h = 123
   var s = style(h)
   assert.equal(('' + h).length, s.length) // length should appear the same.
@@ -39,7 +40,7 @@ exports ['pad still works for non strings, i.e. numbers '] = function (assert){
   assert.equal(s.toString(),"123       ")
 }
 
-exports ['style can pad with different character '] = function (assert){
+exports ['style can pad with different character '] = function (){
   var h = "hello"
   var s = style(h)
   assert.equal(h.length, s.length) // length should appear the same.
@@ -54,7 +55,7 @@ exports ['style can pad with different character '] = function (assert){
   assert.equal(s.toString(),"hello!!!!!")
 }
 
-exports ['style lpad and rpad are chainable '] = function (assert){
+exports ['style lpad and rpad are chainable '] = function (){
   var h = "hello"
   var s = style(h)
   assert.equal(h.length, s.length)
@@ -66,7 +67,7 @@ exports ['style lpad and rpad are chainable '] = function (assert){
   //calling lpad or rpad more than once has undefined behaviour.
 }
 
-exports ['can set colours of styled strings '] = function (assert){
+exports ['can set colours of styled strings '] = function (){
   var h = "hello"
   var s = style(h).red
   assert.ok(s,"styled string has color properties")
@@ -87,7 +88,7 @@ exports ['can set colours of styled strings '] = function (assert){
   //calling lpad or rpad more than once has undefined behaviour.
 }
 
-exports ['style is applied on toString'] = function (assert){
+exports ['style is applied on toString'] = function (){
   var h = "hello"
   var s = style(h).blue
 
@@ -95,7 +96,7 @@ exports ['style is applied on toString'] = function (assert){
   console.log("" + s)
 }
 
-exports ['ruby style .to_s, for lazyness'] = function (assert){
+exports ['ruby style .to_s, for lazyness'] = function (){
   var h = "hello"
   var s = style(h).red
 
@@ -103,7 +104,7 @@ exports ['ruby style .to_s, for lazyness'] = function (assert){
   console.log("" + s)
 }
 
-exports ['style exposes styles'] = function (assert){
+exports ['style exposes styles'] = function (){
   var styleKeys = style.styles
   
   styleKeys.forEach(function showStyle (h){
@@ -113,7 +114,7 @@ exports ['style exposes styles'] = function (assert){
   })
 }
 
-exports ['style colours can be disabled'] = function (assert){
+exports ['style colours can be disabled'] = function (){
   var styleKeys = style.styles
   unstyle = style.enable(false)
   
@@ -123,7 +124,7 @@ exports ['style colours can be disabled'] = function (assert){
   })
 }
 
-exports ['when padding is styled, it is only styled once'] = function (assert){
+exports ['when padding is styled, it is only styled once'] = function (){
   var h = "hello"
   var s = style(h)
   var pad = style('!').red
@@ -141,7 +142,7 @@ exports ['when padding is styled, it is only styled once'] = function (assert){
     + " should be >= " + ( 10))
 }
 
-exports ['can destyle a string'] = function (assert) {
+exports ['can destyle a string'] = function () {
 
   var dr = 'double rainbow'
     , r = style(dr).rainbow
@@ -152,7 +153,7 @@ exports ['can destyle a string'] = function (assert) {
   assert.equal(style.destyle(flat),dr)
 }
 
-exports ['destyled padded style will be same length as un styled string'] = function (assert){
+exports ['destyled padded style will be same length as un styled string'] = function (){
     plain = style.enable(false)
   
   var dr = 'double rainbow'
@@ -167,7 +168,7 @@ exports ['destyled padded style will be same length as un styled string'] = func
      assert.ok(("" + style.destyle(r)).length == ("" + p).length)    
 }
 
-exports ['apply a style to multiple objects'] = function (assert){
+exports ['apply a style to multiple objects'] = function (){
  var rb = style().rainbow.styler
   , dr = 'double rainbow'
  assert.ok('function',typeof rb)

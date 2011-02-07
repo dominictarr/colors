@@ -26,14 +26,17 @@ exports.parseError = parseError
 function parseError(error){
   var obj
 
+/*  if(!error)
+    return style('' + error).red
+*/
   obj = 
-    { name: ('object' == typeof error) ? (error.name || error.constructor.name) : typeof error
+    { name: ('object' == typeof error && error != null) ? (error.name || error.constructor.name) : 'thrown'
     }
-    if(error.stack){
+    if(error && error.stack){
       var stack = stackStr = error.stack.split("\n")
       obj.stack = stack.map(parseStackLine)
     } else {
-      obj.message = error.message || error 
+      obj.message = (error && error.message) || '' + error 
       obj.stack = [{unmatched: '[no stack trace]'}] // same format as a propper error, so printing is easy
     }
   return obj

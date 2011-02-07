@@ -26,6 +26,7 @@ this is based on colors.js by Alexis Sellier (cloudhead) & Marak Squires
 */
 
 exports = module.exports = style
+exports.error = require('./error')
 
 function style(string){
   return new Styled(string)

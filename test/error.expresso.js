@@ -5,14 +5,16 @@
 
 
 var should = require ('should')
-  , assert = require('assert')
+  , test = require('assert')
   , errorStyle = require('../error')
   , style = require('../style')
   , eq = null
   , log = console.log
+  , assert = require('assert')
+
 try{assert.equal(3,7)} catch (err){eq = err}
 
-exports ['can print errors'] = function (test){
+exports ['can print errors'] = function (){
   log("THIS IS JUST A DRILL. TESTING ERROR MESSAGE PRINTING")
   log (errorStyle.printError(new Error("TESTING ERROR MESSAGES")))
   log (errorStyle.printError(eq))
@@ -21,7 +23,7 @@ exports ['can print errors'] = function (test){
   log("DRILL OVER. ERROR MESSAGES ARE REAL AGAIN.")
 }
 
-exports ['can print errors in colour'] = function (test){
+exports ['can print errors in colour'] = function (){
   log("THIS IS JUST A DRILL. TESTING ERROR MESSAGE PRINTING")
 
   log(errorStyle.styleError(new Error("TESTING ERROR MESSAGES")))
@@ -32,7 +34,7 @@ exports ['can print errors in colour'] = function (test){
   log("DRILL OVER. ERROR MESSAGES ARE REAL AGAIN.")
 }
 
-exports ['can parse an error and get everything out of it'] = function (test){
+exports ['can parse an error and get everything out of it'] = function (){
 var stack = 
   "AssertionError: 7 == 3\n"
     + "at Object.equal (/home/dominic/code/node/meta-test/test_reports.js:21:13)\n"
@@ -57,7 +59,7 @@ var obj = errorStyle.parseError(error)
    obj.stack[1].should.have.property('column',13)
 }
 
-exports ['can parse information from a stack trace'] = function (test){
+exports ['can parse information from a stack trace'] = function (){
   var lines = 
 
   [ { unmatched: "at Object.equal (/home/dominic/code/node/meta-test/test_reports.js:21:13)" 
@@ -128,7 +130,7 @@ exports ['can parse information from a stack trace'] = function (test){
 }
 
 
-exports ['can parseError for non errorStyle types'] = function (test){
+exports ['can parseError for non errorStyle types'] = function (){
   
   var nostack = '[no stack trace]'
   
@@ -136,15 +138,22 @@ exports ['can parseError for non errorStyle types'] = function (test){
   var nt = errorStyle.parseError(123)
   var ot = errorStyle.parseError({name: "whatever", message: "non Error error TESTING ERROR MESSAGES"})
   
-  st.should.have.property('name','string')
+  st.should.have.property('name','thrown')
   st.should.have.property('message','STRING THROW')
   st.should.have.property('stack').eql([{unmatched:nostack}])  
   
-  nt.should.have.property('name','number')
-  nt.should.have.property('message',123)
+  nt.should.have.property('name','thrown')
+  nt.should.have.property('message').eql(123)
   nt.should.have.property('stack').eql([{unmatched:nostack}])  
   
   ot.should.have.property('name','whatever')
   ot.should.have.property('message','non Error error TESTING ERROR MESSAGES')
   ot.should.have.property('stack').eql([{unmatched:nostack}])  
+}
+
+exports ['can style a falsey error'] = function (){
+var falsey = [false,0,undefined,null]
+
+  falsey.map(errorStyle.styleError)
+
 }
